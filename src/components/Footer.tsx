@@ -52,7 +52,10 @@ export default function Footer() {
           </p>
 
           <p className="text-[10px] font-mono text-neutral-400">
-            Chennai, India &middot; Operating globally &bull; &copy; 2026. All rights reserved. Powered by{" "}
+            Chennai, India &middot; Operating globally &bull; &copy; 2026. All rights reserved.
+          </p>
+          <p className="text-[10px] font-mono text-neutral-400">
+            Powered by{" "}
             <a 
               href="https://team-o7-digital-solutions.vercel.app/" 
               target="_blank" 

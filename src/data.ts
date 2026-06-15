@@ -21,6 +21,10 @@ export const KRONNEX_WORK: CaseStudy[] = [
       { value: "92%", label: "From Non-Followers" },
       { value: "+233%", label: "Reach Spurt" }
     ],
+    showcaseImages: [
+      { src: "/mercedes-post-1.png", label: "Mercedes-Benz Exterior Post 1" },
+      { src: "/mercedes-post-2.png", label: "Mercedes-Benz Exterior Post 2" },
+    ],
     captions: ["Bugatti Residences Campaign", "Mercedes-Benz by Binghatti Reveal", "Penthouse Collection Launch"],
     mockChartTitle: "Impressions Lift (Bugatti & Mercedes Campaigns)",
     mockChartData: [

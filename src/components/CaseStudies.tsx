@@ -2,10 +2,118 @@ import React, { useState, useEffect } from "react";
 import { KRONNEX_WORK } from "../data";
 import { CaseStudy } from "../types";
 import { motion, AnimatePresence } from "motion/react";
-import { MapPin, Image, LineChart, LayoutTemplate } from "lucide-react";
+import { MapPin, Image, LineChart, LayoutTemplate, ChevronLeft, ChevronRight } from "lucide-react";
 import ScrollingBackgroundText from "./ScrollingBackgroundText";
 
 const CATEGORIES = ["All", "Luxury Real Estate", "Bridal Couture", "Health & Wellness", "Property Developer", "Web Design"];
+
+function ShowcaseGallery({ images }: { images: { src: string; label: string }[] }) {
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
+
+  // Auto-rotate when not hovering
+  useEffect(() => {
+    if (isHovering) return;
+    const timer = setInterval(() => {
+      setActiveIdx(prev => (prev + 1) % images.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [isHovering, images.length]);
+
+  return (
+    <div 
+      className="showcase-gallery"
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+    >
+      {/* Hero Image */}
+      <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-neutral-950 group shadow-2xl shadow-black/20">
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={activeIdx}
+            src={images[activeIdx].src}
+            alt={images[activeIdx].label}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        </AnimatePresence>
+
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20 pointer-events-none" />
+
+        {/* Label */}
+        <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
+          <div className="flex items-end justify-between">
+            <div>
+              <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-neutral-400 block mb-1">
+                SHOWCASE · POST {activeIdx + 1} OF {images.length}
+              </span>
+              <h4 className="font-display text-base sm:text-lg font-medium text-white">
+                {images[activeIdx].label}
+              </h4>
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setActiveIdx(prev => prev === 0 ? images.length - 1 : prev - 1)}
+                className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/25 transition-colors"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => setActiveIdx(prev => (prev + 1) % images.length)}
+                className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/25 transition-colors"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Progress dots */}
+        <div className="absolute top-4 right-4 flex gap-1.5 z-10">
+          {images.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setActiveIdx(i)}
+              className={`rounded-full transition-all duration-300 ${
+                i === activeIdx
+                  ? "w-6 h-2 bg-white"
+                  : "w-2 h-2 bg-white/40 hover:bg-white/60"
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Thumbnail Strip */}
+      <div className="flex gap-3 mt-3">
+        {images.map((img, i) => (
+          <button
+            key={i}
+            onClick={() => setActiveIdx(i)}
+            className={`relative flex-1 aspect-[4/3] rounded-xl overflow-hidden border-2 transition-all duration-300 ${
+              i === activeIdx
+                ? "border-neutral-900 shadow-lg ring-2 ring-neutral-900/20"
+                : "border-neutral-200 opacity-60 hover:opacity-90 hover:border-neutral-400"
+            }`}
+          >
+            <img
+              src={img.src}
+              alt={img.label}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            {i === activeIdx && (
+              <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-[10px]" />
+            )}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function CaseStudies() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -123,7 +231,7 @@ export default function CaseStudies() {
 
           {/* BOTTOM: Detail Browser */}
           <div className="w-full">
-            <div className="border border-neutral-200 rounded-xl bg-white shadow-2xl shadow-black/5 overflow-hidden flex flex-col h-[700px]">
+            <div className="border border-neutral-200 rounded-xl bg-white shadow-2xl shadow-black/5 overflow-hidden flex flex-col">
               
               {/* Browser Header */}
               <div className="bg-neutral-50 border-b border-neutral-200 px-4 py-3 flex items-center justify-between">
@@ -157,7 +265,7 @@ export default function CaseStudies() {
               </div>
 
               {/* Browser Content */}
-              <div className="p-8 flex-1 overflow-y-auto custom-scrollbar">
+              <div className="p-8 overflow-y-auto custom-scrollbar" style={{ maxHeight: "800px" }}>
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={`${activeCase.id}-${activeBrowserTab}`}
@@ -169,6 +277,15 @@ export default function CaseStudies() {
                     
                     {activeBrowserTab === "strategy" && (
                       <div className="space-y-10">
+
+                        {/* ★ Showcase Image Gallery — renders FIRST, above the fold */}
+                        {activeCase.showcaseImages && activeCase.showcaseImages.length > 0 && (
+                          <div>
+                            <span className="text-[10px] font-mono text-neutral-400 mb-3 block">Featured Campaign Visuals</span>
+                            <ShowcaseGallery images={activeCase.showcaseImages} />
+                          </div>
+                        )}
+
                         <div>
                           <span className="text-[10px] font-mono text-neutral-400 mb-2 block">Client Profile</span>
                           <h3 className="font-display text-3xl font-medium text-neutral-900 mb-2">{activeCase.clientName}</h3>
@@ -193,64 +310,66 @@ export default function CaseStudies() {
                           ))}
                         </div>
 
-                        {/* Work Assets Section Appended under Strategy */}
-                        <div className="border-t border-dashed border-neutral-200 pt-10 mt-10">
-                          <div>
-                            <span className="text-[10px] font-mono text-neutral-400 mb-2 block">Work Assets Archive</span>
-                            <h3 className="font-display text-2xl font-medium text-neutral-900 mb-6">Campaign Visuals &amp; Output</h3>
-                          </div>
-
-                          {activeCase.id === "image-innovation" ? (
-                            <div className="border border-neutral-200 rounded-xl overflow-hidden bg-white shadow-sm">
-                              <div className="bg-neutral-100 border-b border-neutral-200 px-3 py-2 flex items-center gap-2">
-                                <span className="w-2.5 h-2.5 rounded-full bg-neutral-300" />
-                                <span className="w-2.5 h-2.5 rounded-full bg-neutral-300" />
-                                <span className="w-2.5 h-2.5 rounded-full bg-neutral-300" />
-                              </div>
-                              <div className="aspect-video bg-neutral-50 relative flex items-center justify-center overflow-hidden w-full">
-                                 <iframe src="https://iitpl.ai/" className="absolute inset-0 w-full h-full border-0 pointer-events-none" title="Image Innovation Technology Site" />
-                              </div>
+                        {/* Work Assets Section Appended under Strategy - only show if there are no showcaseImages */}
+                        {!activeCase.showcaseImages && (
+                          <div className="border-t border-dashed border-neutral-200 pt-10 mt-10">
+                            <div>
+                              <span className="text-[10px] font-mono text-neutral-400 mb-2 block">Work Assets Archive</span>
+                              <h3 className="font-display text-2xl font-medium text-neutral-900 mb-6">Campaign Visuals &amp; Output</h3>
                             </div>
-                          ) : (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                              {activeCase.captions.map((caption, i) => (
-                                <div key={i} className="group relative aspect-[4/5] bg-neutral-100 rounded-2xl overflow-hidden border border-neutral-200">
-                                  <div className="absolute inset-0 bg-neutral-900 p-6 flex flex-col justify-between">
-                                    <div className="absolute inset-0 opacity-20"
-                                         style={{
-                                           backgroundImage: "linear-gradient(to right, #404040 1px, transparent 1px), linear-gradient(to bottom, #404040 1px, transparent 1px)",
-                                           backgroundSize: "24px 24px"
-                                         }}
-                                    />
-                                    <div className="relative z-10 flex justify-between">
-                                      <span className="font-mono text-[10px] text-neutral-400 bg-black/50 px-2 py-1 rounded">
-                                        FRAME 0{i + 1}
-                                      </span>
-                                      <span className="font-mono text-[10px] text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded flex items-center gap-1.5">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> LIVE
-                                      </span>
-                                    </div>
-                                    
-                                    <div className="relative z-10 w-full text-center">
-                                      <div className="w-16 h-16 border border-neutral-700 rounded-full flex items-center justify-center font-mono text-sm text-neutral-500 mx-auto mb-4 bg-neutral-950/80 backdrop-blur-sm transition-all duration-300">
-                                        IMG_0{i+1}
+
+                            {activeCase.id === "image-innovation" ? (
+                              <div className="border border-neutral-200 rounded-xl overflow-hidden bg-white shadow-sm">
+                                <div className="bg-neutral-100 border-b border-neutral-200 px-3 py-2 flex items-center gap-2">
+                                  <span className="w-2.5 h-2.5 rounded-full bg-neutral-300" />
+                                  <span className="w-2.5 h-2.5 rounded-full bg-neutral-300" />
+                                  <span className="w-2.5 h-2.5 rounded-full bg-neutral-300" />
+                                </div>
+                                <div className="aspect-video bg-neutral-50 relative flex items-center justify-center overflow-hidden w-full">
+                                   <iframe src="https://iitpl.ai/" className="absolute inset-0 w-full h-full border-0 pointer-events-none" title="Image Innovation Technology Site" />
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                {activeCase.captions.map((caption, i) => (
+                                  <div key={i} className="group relative aspect-[4/5] bg-neutral-100 rounded-2xl overflow-hidden border border-neutral-200">
+                                    <div className="absolute inset-0 bg-neutral-900 p-6 flex flex-col justify-between">
+                                      <div className="absolute inset-0 opacity-20"
+                                           style={{
+                                             backgroundImage: "linear-gradient(to right, #404040 1px, transparent 1px), linear-gradient(to bottom, #404040 1px, transparent 1px)",
+                                             backgroundSize: "24px 24px"
+                                           }}
+                                      />
+                                      <div className="relative z-10 flex justify-between">
+                                        <span className="font-mono text-[10px] text-neutral-400 bg-black/50 px-2 py-1 rounded">
+                                          FRAME 0{i + 1}
+                                        </span>
+                                        <span className="font-mono text-[10px] text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded flex items-center gap-1.5">
+                                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> LIVE
+                                        </span>
+                                      </div>
+                                      
+                                      <div className="relative z-10 w-full text-center">
+                                        <div className="w-16 h-16 border border-neutral-700 rounded-full flex items-center justify-center font-mono text-sm text-neutral-500 mx-auto mb-4 bg-neutral-950/80 backdrop-blur-sm transition-all duration-300">
+                                          IMG_0{i+1}
+                                        </div>
+                                      </div>
+
+                                      <div className="relative z-10">
+                                        <p className="font-medium text-white text-sm">
+                                          {caption}
+                                        </p>
+                                        <p className="text-[9px] font-mono text-neutral-500 mt-1 uppercase tracking-wider">
+                                          Creative Asset / Ad Module
+                                        </p>
                                       </div>
                                     </div>
-
-                                    <div className="relative z-10">
-                                      <p className="font-medium text-white text-sm">
-                                        {caption}
-                                      </p>
-                                      <p className="text-[9px] font-mono text-neutral-500 mt-1 uppercase tracking-wider">
-                                        Creative Asset / Ad Module
-                                      </p>
-                                    </div>
                                   </div>
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </div>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </div>
                     )}
 

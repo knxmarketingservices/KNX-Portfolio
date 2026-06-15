@@ -22,6 +22,10 @@ export interface CaseStudy {
     value: string;
     label: string;
   }[];
+  showcaseImages?: {
+    src: string;
+    label: string;
+  }[];
   captions: string[];
   mockChartTitle: string;
   mockChartData: ChartDataPoint[];

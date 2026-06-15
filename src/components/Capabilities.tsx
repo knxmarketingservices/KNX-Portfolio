@@ -122,15 +122,14 @@ function CapabilityCard({ cap, getIcon, setHoveredIndex, className = "" }: any) 
         </p>
         
         {cap.id === "print" && (
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              alert("Opening secure-print arm portal for Image Security Printers. Connection established.");
-            }}
+          <a
+            href="https://iitpl.ai/image-security-printers"
+            target="_blank"
+            rel="noreferrer"
             className="inline-flex items-center gap-2 mt-6 text-[10px] font-semibold text-neutral-300 hover:text-white border border-neutral-700 hover:border-neutral-500 rounded-full px-4 py-2 bg-black transition-all font-mono shadow-sm"
           >
             About Image Security Printers →
-          </button>
+          </a>
         )}
       </div>
 

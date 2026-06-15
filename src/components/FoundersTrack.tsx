@@ -31,29 +31,38 @@ export default function FoundersTrack() {
                    backgroundSize: "40px 40px"
                  }}
             />
-            <div className="flex flex-col mb-8 relative z-10">
-              <div className="flex justify-between items-center mb-6">
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-indigo-400 bg-indigo-950/50 px-3 py-1.5 rounded border border-indigo-500/20">
-                  EXECUTIVE PROFILE
-                </span>
-                <a
-                  href="https://www.linkedin.com/in/krishanthhariveerappan/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-xs font-mono text-neutral-400 hover:text-white flex items-center gap-1 transition-colors"
-                >
-                  LinkedIn <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
+            <div className="flex flex-col sm:flex-row gap-8 relative z-10 justify-between items-start mb-8">
+              <div className="flex-1 w-full">
+                <div className="flex justify-between items-center mb-6">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-indigo-400 bg-indigo-950/50 px-3 py-1.5 rounded border border-indigo-500/20">
+                    EXECUTIVE PROFILE
+                  </span>
+                  <a
+                    href="https://www.linkedin.com/in/krishanthhariveerappan/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-xs font-mono text-neutral-400 hover:text-white flex items-center gap-1 transition-colors"
+                  >
+                    LinkedIn <ArrowUpRight className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+                <h3 className="font-display font-medium text-3xl leading-tight text-white mb-2">
+                  Krishanth Hari Veerappan
+                </h3>
+                <p className="text-xs font-mono text-neutral-400 mb-3">
+                  Founder, Kronnex &bull; Client Acquisition Partner
+                </p>
+                <p className="flex items-center gap-1.5 text-xs font-mono text-neutral-500">
+                  <MapPin className="w-3.5 h-3.5" /> Chennai, India
+                </p>
               </div>
-              <h3 className="font-display font-medium text-3xl leading-tight text-white mb-2">
-                Krishanth Hari Veerappan
-              </h3>
-              <p className="text-xs font-mono text-neutral-400 mb-3">
-                Founder, Kronnex &bull; Client Acquisition Partner
-              </p>
-              <p className="flex items-center gap-1.5 text-xs font-mono text-neutral-500">
-                <MapPin className="w-3.5 h-3.5" /> Chennai, India
-              </p>
+              <div className="w-32 h-32 sm:w-36 sm:h-36 shrink-0 rounded-2xl overflow-hidden border border-neutral-800 bg-neutral-900 shadow-xl self-center sm:self-start">
+                <img 
+                  src="/krish-professional.png" 
+                  alt="Krishanth Hari Veerappan" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
 
             <div className="relative z-10 border-t border-neutral-800 pt-6 mb-8">

@@ -3,8 +3,8 @@ import { motion } from "motion/react";
 import { Calculator, ArrowRight, CheckCircle, Percent, DollarSign, Users, Award } from "lucide-react";
 
 export default function GrowthCalculator() {
-  const [budget, setBudget] = useState<number>(3000);
-  const [cpm, setCpm] = useState<number>(12);
+  const [budget, setBudget] = useState<number>(100000);
+  const [cpm, setCpm] = useState<number>(400);
   const [ctr, setCtr] = useState<number>(1.8);
   const [qualifyRate, setQualifyRate] = useState<number>(35);
 
@@ -44,21 +44,21 @@ export default function GrowthCalculator() {
             <div className="flex justify-between text-xs font-mono items-center">
               <span className="text-neutral-400">Monthly Ad Budget</span>
               <span className="text-white font-mono font-semibold bg-neutral-800/80 border border-neutral-750 px-2 py-0.5 rounded-md select-none hover:border-neutral-500 hover:bg-neutral-800 transition-all duration-200 cursor-default">
-                ${budget.toLocaleString()}
+                ₹{budget.toLocaleString('en-IN')}
               </span>
             </div>
             <input
               type="range"
-              min="500"
-              max="20000"
-              step="500"
+              min="20000"
+              max="500000"
+              step="10000"
               value={budget}
               onChange={(e) => setBudget(Number(e.target.value))}
               className="w-full h-1 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-white"
             />
             <div className="flex justify-between text-[9px] text-neutral-500 font-mono">
-              <span>$500</span>
-              <span>$20,000</span>
+              <span>₹20,000</span>
+              <span>₹5,00,000</span>
             </div>
           </div>
 
@@ -66,20 +66,20 @@ export default function GrowthCalculator() {
           <div className="space-y-1.5">
             <div className="flex justify-between text-xs font-mono">
               <span className="text-neutral-400">Estimated CPM (Cost Per 1K Views)</span>
-              <span className="text-white font-bold">${cpm}</span>
+              <span className="text-white font-bold">₹{cpm.toLocaleString('en-IN')}</span>
             </div>
             <input
               type="range"
-              min="4"
-              max="40"
-              step="1"
+              min="100"
+              max="2000"
+              step="50"
               value={cpm}
               onChange={(e) => setCpm(Number(e.target.value))}
               className="w-full h-1 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-white"
             />
             <div className="flex justify-between text-[9px] text-neutral-500 font-mono">
-              <span>$4 (Cheap/Broad)</span>
-              <span>$40 (Premium Dubai/US HNW)</span>
+              <span>₹100 (Cheap/Broad)</span>
+              <span>₹2,000 (Premium Indian/Global HNW)</span>
             </div>
           </div>
 
@@ -168,7 +168,7 @@ export default function GrowthCalculator() {
               Predicted Cost / Qualified
             </span>
             <span className="font-display font-bold text-sm text-neutral-300 mt-1 block">
-              ${costPerQualified}
+              ₹{costPerQualified.toLocaleString('en-IN')}
             </span>
           </div>
         </div>

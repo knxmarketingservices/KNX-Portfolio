@@ -26,14 +26,14 @@ export default function Footer() {
 
           <div className="pt-2">
             <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                alert("Redirecting to corporate portal for Image Innovation (Demonstration Only).");
-              }}
-              className="inline-flex items-center gap-1.5 text-xs text-neutral-900 font-semibold border-b border-neutral-900 pb-0.5 hover:text-neutral-500 hover:border-neutral-300 transition-colors"
+              href="https://iitpl.ai/"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-neutral-950 text-white hover:bg-neutral-800 transition-all duration-200 text-xs font-semibold rounded-xl shadow-sm border border-neutral-850 hover:scale-[1.02]"
             >
-              Enterprise Credentials Verification <ArrowUpRight className="w-3.5 h-3.5 text-neutral-400" />
+              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              Enterprise Credentials Verification
+              <ArrowUpRight className="w-3.5 h-3.5 text-neutral-400" />
             </a>
           </div>
         </div>

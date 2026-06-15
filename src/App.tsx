@@ -153,35 +153,49 @@ export default function App() {
             </div>
 
             {/* Direct Instant Action Lines */}
-            <div className="mt-16 pt-8 border-t border-neutral-800 flex flex-wrap items-center justify-between gap-6 text-xs text-neutral-400 font-mono">
-              <span className="relative group flex items-center gap-1.5 cursor-help py-1 select-none">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block animate-pulse" />
-                <span className="underline decoration-dotted decoration-neutral-600 hover:decoration-white transition-colors duration-200">
-                  Response threshold: Under 12 hours
-                </span>
-                
-                {/* Subtle Refined Hover SLA Tooltip */}
-                <span className="absolute bottom-full left-0 mb-3.5 hidden group-hover:block w-72 bg-neutral-900 border border-neutral-800 text-neutral-300 text-[11px] p-4 rounded-xl shadow-2xl leading-relaxed font-sans z-50 pointer-events-none transition-all duration-300 animate-in fade-in slide-in-from-bottom-2">
-                  <span className="block font-mono text-[9px] font-semibold text-emerald-400 mb-1.5 tracking-wider uppercase">
-                    Kronnex SLA Turnaround
+            <div className="mt-16 p-6 sm:p-8 bg-neutral-900 border border-neutral-800 rounded-3xl flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div className="flex items-center gap-4">
+                {/* The Logo */}
+                <div className="w-10 h-10 rounded-full overflow-hidden border border-neutral-800 shrink-0 bg-black flex items-center justify-center">
+                  <img src="/NEW_LOGO.png" alt="Kronnex Logo" className="w-full h-full object-cover" />
+                </div>
+                <div>
+                  <span className="relative group flex items-center gap-1.5 cursor-help select-none">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block animate-pulse" />
+                    <span className="text-sm font-semibold text-white underline decoration-dotted decoration-neutral-500 hover:decoration-white transition-colors duration-200">
+                      Response threshold: Under 12 hours
+                    </span>
+                    
+                    {/* Subtle Refined Hover SLA Tooltip */}
+                    <span className="absolute bottom-full left-0 mb-3.5 hidden group-hover:block w-72 bg-neutral-950 border border-neutral-800 text-neutral-300 text-[11px] p-4 rounded-xl shadow-2xl leading-relaxed font-sans z-50 pointer-events-none transition-all duration-300 animate-in fade-in slide-in-from-bottom-2">
+                      <span className="block font-mono text-[9px] font-semibold text-emerald-400 mb-1.5 tracking-wider uppercase">
+                        Kronnex SLA Turnaround
+                      </span>
+                      We commit to response validation within 12 hours for all verified business inquiries. Diagnostic modeling and consultation slots are typically prioritized and scheduled within 24 to 48 hours.
+                    </span>
                   </span>
-                  We commit to response validation within 12 hours for all verified business inquiries. Diagnostic modeling and consultation slots are typically prioritized and scheduled within 24 to 48 hours.
-                </span>
-              </span>
-              <div className="flex gap-6">
+                  <p className="text-xs text-neutral-400 mt-0.5">SLA-backed direct channel</p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-4 items-center">
                 <a
                   href="mailto:knxmarketing@gmail.com"
-                  className="hover:text-white transition-colors flex items-center gap-1 underline"
+                  className="inline-flex items-center gap-2 px-5 py-3 bg-neutral-800 hover:bg-neutral-750 text-white border border-neutral-750 rounded-xl transition-all text-xs sm:text-sm font-semibold shadow-sm hover:scale-[1.02]"
                 >
-                  Direct Email Back-channel <ArrowRight className="w-3 h-3" />
+                  <span className="w-2 h-2 rounded-full bg-indigo-400" />
+                  Direct Email Back-channel
+                  <ArrowRight className="w-4 h-4 text-neutral-400" />
                 </a>
+                
                 <a
                   href="https://wa.me/97455283706"
                   target="_blank"
                   rel="noreferrer"
-                  className="hover:text-white transition-colors flex items-center gap-1 text-emerald-400 underline font-semibold"
+                  className="inline-flex items-center gap-2 px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white border border-emerald-500 rounded-xl transition-all text-xs sm:text-sm font-semibold shadow-sm hover:scale-[1.02]"
                 >
-                  Direct WhatsApp Liaison <MessageSquareCode className="w-4 h-4 fill-emerald-900/40" />
+                  <MessageSquareCode className="w-4 h-4" />
+                  Direct WhatsApp Liaison
                 </a>
               </div>
             </div>

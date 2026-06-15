@@ -6,7 +6,7 @@ import { Brain, Cpu, ArrowRight, Play, CheckCircle2, Terminal, AlertTriangle, Sp
 export default function AIEngine() {
   const [selectedProduct, setSelectedProduct] = useState<string | null>("rm1");
   const [niche, setNiche] = useState<string>("luxury_property");
-  const [blocker, setBlocker] = useState<string>("low_leads");
+  const [blocker, setBlocker] = useState<string>("social_strategy");
   const [isScanning, setIsScanning] = useState(false);
   const [scanOutput, setScanOutput] = useState<any | null>(null);
   const [scanStep, setScanStep] = useState(0);
@@ -19,9 +19,9 @@ export default function AIEngine() {
   ];
 
   const blockersList = [
-    { id: "low_leads", name: "We get low volume of qualified leads" },
-    { id: "bad_hooks", name: "People scroll past our organic videos" },
-    { id: "unoptimized_ads", name: "Our CPC is extremely high or uncalibrated" }
+    { id: "social_strategy", name: "I want to build an authority-driven social media strategy" },
+    { id: "video_hooks", name: "I need high-retention hook architectures for scripted videos" },
+    { id: "meta_ads", name: "How do I approach scalable, high-converting Meta Ads?" }
   ];
 
   const handleRunAudit = () => {
@@ -52,37 +52,109 @@ export default function AIEngine() {
     };
 
     if (niche === "luxury_property") {
-      response.summary = "Luxury buyers filter out standard promotional flyers immediately. Shifting to an 'exclusivity-ledger' framework will increase inquiry density.";
-      response.hooks = [
-        "Script a 'What a $2M penthouse looks like in Dubai at 6:00 AM' (raw ambient walk, no loud voiceovers).",
-        "The negative benefit angle: 'Why we rejected 8 prospective buyers for this Bugatti tower block.'"
-      ];
-      response.campaignAngle = "Construct a custom Meta Lead Form with custom validation questions such as 'Requested Consultation Timeline'. This increases qualified contact ratios up to 45%.";
-      response.targetTip = "Do not deploy stock renderings. Film raw 4k smartphone POVs of structural details (marble slabs, window sights) to establish authenticity.";
+      if (blocker === "social_strategy") {
+        response.summary = "Luxury property buyers bypass standard promotional listings. A premium social strategy must focus on lifestyle narratives, off-market portfolio access, and developer design heritage.";
+        response.hooks = [
+          "Expose the design details: 'The 3 custom features inside this Palm Jumeirah villa that cost more than typical apartments.'",
+          "The private access hook: 'How international family offices secure off-market penthouses before release.'"
+        ];
+        response.campaignAngle = "Run campaigns positioning your brand as private acquisition advisors rather than transactional brokers, steering traffic to private video walkthroughs.";
+        response.targetTip = "Produce ultra-premium video tours showing structural craftsmanship (e.g. customized marble slabs, natural daylight angles).";
+      } else if (blocker === "video_hooks") {
+        response.summary = "High-net-worth individuals have low tolerance for loud sales pitches. Retention is captured through quiet, raw luxury and ambient audio walkthroughs.";
+        response.hooks = [
+          "What a $12 Million luxury villa in Dubai looks like at 6:00 AM (raw ambient sounds, no voiceover).",
+          "The negative luxury filter: 'Why the new Bugatti Residences penthouses are deliberately unavailable to 95% of buyers.'"
+        ];
+        response.campaignAngle = "Utilize silent cinematic reels with minimalist serif text overlays to draw attention on visual feeds.";
+        response.targetTip = "Focus on details. Shoot high-resolution close-ups of premium materials, private views, and architectural layouts.";
+      } else { // meta_ads
+        response.summary = "HNW real estate requires strict lead verification barriers. Standard campaigns attract unqualified clicks and spam leads.";
+        response.hooks = [
+          "How local real estate policy revisions are shifting high-ticket property trends.",
+          "The off-market ledger: 'Analyzing the off-market penthouses yielding 8%+ net rental returns.'"
+        ];
+        response.campaignAngle = "Implement custom Meta lead forms requiring prospective buyers to select their planned investment timeline and minimum budget brackets.";
+        response.targetTip = "Create high-value downloadable PDF dossiers (like 'Dubai Off-Market Penthouse Catalog') to filter for qualified buyers.";
+      }
     } else if (niche === "couture_brand") {
-      response.summary = "Aesthetic purchase is entirely storytelling driven. Highlighting founder story over pricing creates strong design premium positioning.";
-      response.hooks = [
-        "The founder series: 'The 34-hour embroidery mistake that taught us couture.'",
-        "POV: 'Bridal gown consult walkthrough for a heritage wedding.'"
-      ];
-      response.campaignAngle = "Meta ads utilizing multi-slide carousel sheets displaying close-up needlecraft. Target specifically high-end wedding planning interest filters.";
-      response.targetTip = "Ditch pure studio photos. Post organic, well-lit in-boutique tailoring snippets to make followers feel in the loop.";
+      if (blocker === "social_strategy") {
+        response.summary = "Couture fashion purchase decisions are entirely storytelling and craftsmanship driven. Social positioning must build designer prestige.";
+        response.hooks = [
+          "The heritage hook: 'The 48-hour hand-embroidery process behind this custom bridal silhouette.'",
+          "Process transparency: 'Why our couture fitting diary requires a 3-month waitlist.'"
+        ];
+        response.campaignAngle = "Leverage behind-the-scenes fitting diaries, founder design sketches, and tactile fabric close-ups to justify premium pricing.";
+        response.targetTip = "Maintain warm, studio lighting and focus heavily on fabric texture, stitching, and styling detail.";
+      } else if (blocker === "video_hooks") {
+        response.summary = "Couture video engagement relies on high-contrast fabric textures and emotional, process-driven bridal storytelling.";
+        response.hooks = [
+          "POV: You are stepping into a custom-tailored heritage bridal gown designed over 6 months.",
+          "The designer's log: 'The stitching mistake that taught us how to handle premium silk.'"
+        ];
+        response.campaignAngle = "Target high-intent wedding registry, luxury fashion, and designer boutique interest cohorts.";
+        response.targetTip = "Avoid standard corporate studios. Record in warm, organic, naturally lit showroom settings.";
+      } else { // meta_ads
+        response.summary = "Bespoke fashion requires visual prestige ads. Multi-image layouts displaying needlecraft detail perform best.";
+        response.hooks = [
+          "How we structure custom bridal silhouettes for heritage weddings.",
+          "Bespoke consultation: 'What happens during a private 1-on-1 design blueprint session.'"
+        ];
+        response.campaignAngle = "Run multi-image carousel ads showcasing close-up handcraft, linking to a private calendar booker.";
+        response.targetTip = "Focus ad copy entirely on exclusivity, design legacy, and custom fit rather than discounts.";
+      }
     } else if (niche === "clinic_health") {
-      response.summary = "Medical and clinical authority relies entirely on trust, not aesthetic slogans. Leveraging professional medical explanations converts skeptics.";
-      response.hooks = [
-        "Explain the physiological rationale: 'Why typical skincare routines trigger inflammation (doctor POV).'",
-        "Patient testimonial structure: 'The chronic symptom we managed when all other prescriptions failed.'"
-      ];
-      response.campaignAngle = "Configure localized geographic radius targeting within Chennai/your central hub. Serve educational carousels linking to an appointment picker.";
-      response.targetTip = "Optimize thumbnails through contrast adjustments. Use clear bold medical definitions on screen in Space Grotesk.";
-    } else {
-      response.summary = "SaaS prospects seek measurable economic efficiency and risk reduction. Clear numerical claims and competitive intelligence hook CTOs.";
-      response.hooks = [
-        "The developer expose: 'The automated shell script saving our engineers 12 hours a week.'",
-        "Direct trade-off: 'Why typical automated agencies lose 38% of prospective contacts inside the pipeline.'"
-      ];
-      response.campaignAngle = "Target specifically startup founders and performance buyers. Pipe lead inquiries directly into a Slack channel for instant five-minute response times.";
-      response.targetTip = "Include live code snippets or clean product dashboards directly in static image frames.";
+      if (blocker === "social_strategy") {
+        response.summary = "Clinical and Ayurvedic authority is built on educational trust. Shift social strategy from generic clinic slogans to doctor-led science.";
+        response.hooks = [
+          "The clinical expose: 'Why typical detox treatments might be silently triggering gut inflammation.'",
+          "The physiological truth: 'How chronic stress manifests in the skin (doctor explainer POV).'"
+        ];
+        response.campaignAngle = "Post detailed patient recovery diaries, case histories, and research summaries to validate treatment efficacy.";
+        response.targetTip = "Add bold, high-contrast text overlays directly on explanation videos.";
+      } else if (blocker === "video_hooks") {
+        response.summary = "Clinical health video retention is driven by physiological revelations, clear science, and trust-vetted setups.";
+        response.hooks = [
+          "The physiological trigger behind chronic joint inflammation that most clinics ignore.",
+          "POV: A therapeutic morning walkthrough inside our clinical Ayurveda treatment rooms."
+        ];
+        response.campaignAngle = "Publish educational reels showing doctors answering real patient questions in a clinical setting.";
+        response.targetTip = "Optimize video thumbnails by using professional clinical backdrops, white coats, and bold labels.";
+      } else { // meta_ads
+        response.summary = "Clinic ads must build trust and target locally. Use radius-based campaigns to drive active local bookings.";
+        response.hooks = [
+          "Case study: How we restructured this patient's lifestyle plan to resolve chronic symptoms.",
+          "Diagnostic blueprint: 'What to expect during your first diagnostic consultation.'"
+        ];
+        response.campaignAngle = "Run geographical radius campaigns around the clinic, serving educational carousel ads that link to a direct booking calendar.";
+        response.targetTip = "Keep ad copy professional, compliance-friendly, and focused on symptom restoration and precise diagnostics.";
+      }
+    } else { // saas_b2b
+      if (blocker === "social_strategy") {
+        response.summary = "Enterprise B2B clients seek measurable efficiency gains and risk mitigation. Social content must feature raw systems and metrics.";
+        response.hooks = [
+          "The automation log: 'The 30-line shell script saving our engineering team 15 hours every week.'",
+          "System leakage: 'Why standard B2B sales pipelines lose up to 40% of leads before contact.'"
+        ];
+        response.campaignAngle = "Share actual technical blueprints, database flows, and system architectures to prove engineering capabilities.";
+        response.targetTip = "Use high-contrast dark mode images showing dashboard analytics, system logs, or clean code snippets.";
+      } else if (blocker === "video_hooks") {
+        response.summary = "B2B tech video hooks must focus on engineering productivity, workflow hacks, and developer tools.";
+        response.hooks = [
+          "How we automated competitive market intelligence tracking for B2B pricing.",
+          "The direct comparison: 'Why standard outsourced agency models lead to pipeline decay.'"
+        ];
+        response.campaignAngle = "Deploy reels showing developers walking through live dashboards, database consoles, or integrations.";
+        response.targetTip = "Record raw screen-shares showing product features and terminal consoles rather than talking heads.";
+      } else { // meta_ads
+        response.summary = "Meta B2B ads perform best when offering tangible tools (calculators, dashboards, templates) rather than generic consult calls.";
+        response.hooks = [
+          "Download the exact spreadsheet model we use to scale HNW buyer funnels.",
+          "The B2B blueprint: 'The conversion infrastructure template for SaaS applications.'"
+        ];
+        response.campaignAngle = "Promote high-value downloadable tools or templates to capture B2B emails, piping them to sales channels.";
+        response.targetTip = "Style ad creatives with clean, monospaced tech-inspired text highlights and dark themes.";
+      }
     }
 
     setScanOutput(response);

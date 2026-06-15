@@ -3,147 +3,72 @@ import { motion } from "motion/react";
 import { STATS_DATA } from "../data";
 import { TrendingUp, Users, Inbox, Award } from "lucide-react";
 
-interface CountUpProps {
-  valueStr: string;
-  duration?: number;
-}
-
-function CountUp({ valueStr, duration = 1500 }: CountUpProps) {
-  const { numericPart, suffix } = React.useMemo(() => {
-    const num = parseInt(valueStr.replace(/[^0-9]/g, ""), 10) || 0;
-    const suf = valueStr.replace(/[0-9]/g, "");
-    return { numericPart: num, suffix: suf };
-  }, [valueStr]);
-
-  const [count, setCount] = useState(0);
-
-  React.useEffect(() => {
-    let startFrame = 0;
-    const endValue = numericPart;
-    if (endValue === 0) {
-      setCount(0);
-      return;
-    }
-
-    const fps = 60;
-    const totalFrames = Math.round((duration / 1000) * fps);
-    let frame = 0;
-
-    const timer = setInterval(() => {
-      frame++;
-      const progress = frame / totalFrames;
-      const easeProgress = progress * (2 - progress);
-      const current = Math.round(easeProgress * endValue);
-      setCount(current);
-
-      if (frame >= totalFrames) {
-        clearInterval(timer);
-        setCount(endValue);
-      }
-    }, 1000 / fps);
-
-    return () => clearInterval(timer);
-  }, [numericPart, duration]);
-
-  return (
-    <>
-      {count}
-      {suffix}
-    </>
-  );
-}
-
 export default function ReStats() {
-  const getDelay = (id: string) => {
-    switch (id) {
-      case "reach": return 0;
-      case "leads": return 0.8;
-      case "enquiries": return 1.6;
-      case "brands": return 2.4;
-      default: return 0;
-    }
-  };
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
   const getMetricIcon = (id: string) => {
     switch (id) {
       case "reach":
-        return (
-          <motion.div
-            animate={{ y: [0, -3, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="p-2.5 rounded-full bg-indigo-950/60 border border-indigo-900/50 text-indigo-400 shadow-sm shadow-indigo-950/40"
-          >
-            <TrendingUp className="w-5 h-5" />
-          </motion.div>
-        );
+        return <TrendingUp className="w-5 h-5 text-neutral-400" />;
       case "leads":
-        return (
-          <motion.div
-            animate={{ scale: [1, 1.08, 1] }}
-            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-            className="p-2.5 rounded-full bg-emerald-950/60 border border-emerald-900/50 text-emerald-400 shadow-sm shadow-emerald-950/40"
-          >
-            <Users className="w-5 h-5" />
-          </motion.div>
-        );
+        return <Users className="w-5 h-5 text-neutral-400" />;
       case "enquiries":
-        return (
-          <motion.div
-            animate={{ rotate: [0, 6, -6, 0] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="p-2.5 rounded-full bg-violet-950/60 border border-violet-900/50 text-violet-400 shadow-sm shadow-violet-950/40"
-          >
-            <Inbox className="w-5 h-5" />
-          </motion.div>
-        );
+        return <Inbox className="w-5 h-5 text-neutral-400" />;
       case "brands":
-        return (
-          <motion.div
-            animate={{ y: [0, 3, 0] }}
-            transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-            className="p-2.5 rounded-full bg-amber-950/60 border border-amber-900/50 text-amber-400 shadow-sm shadow-amber-950/40"
-          >
-            <Award className="w-5 h-5" />
-          </motion.div>
-        );
+        return <Award className="w-5 h-5 text-neutral-400" />;
       default:
         return null;
     }
   };
 
+  const getMetricDetails = (id: string) => {
+    switch (id) {
+      case "reach":
+        return "Total eyeballs and targeted impressions generated across luxury housing campaigns, video assets, and organic content systems within optimal focus periods.";
+      case "leads":
+        return "High-intent individuals who completed meta form registrations, requested pricing prospectuses, or explicitly scheduled a follow-up consultation call.";
+      case "enquiries":
+        return "Verified direct inquiry messages received via WhatsApp, Instagram DM, and clinical web portals initiated directly by prospective service buyers.";
+      case "brands":
+        return "Enterprise and boutique companies fully structured with design books, high-retaining video structures, and calibrated digital sales pipelines.";
+      default:
+        return "";
+    }
+  };
+
   return (
-    <section className="border-y border-neutral-800 bg-neutral-900 overflow-hidden" id="stats">
+    <section className="border-y border-neutral-200 bg-neutral-50" id="stats">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-neutral-800">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-neutral-200">
           {STATS_DATA.map((stat) => (
             <div
               key={stat.id}
-              className="relative p-8 md:py-12 md:px-10 text-center transition-all duration-300 hover:bg-neutral-950 overflow-hidden group select-none cursor-pointer"
+              className="relative p-8 md:py-12 md:px-10 text-center transition-all duration-300 hover:bg-white overflow-hidden group select-none cursor-pointer"
+              onMouseEnter={() => setHoveredCard(stat.id)}
+              onMouseLeave={() => setHoveredCard(null)}
             >
-              <motion.div
-                animate={{
-                  y: [0, -8, 0],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: getDelay(stat.id),
-                }}
-                className="flex flex-col items-center justify-center"
-              >
-                <div className="flex flex-col items-center justify-center gap-3 mb-4">
-                  {getMetricIcon(stat.id)}
-                  <span className="font-mono text-[10px] uppercase tracking-wider font-semibold text-neutral-400 group-hover:text-white transition-colors duration-200">
-                    {stat.metricLabel}
-                  </span>
-                </div>
+              <div className="flex items-center justify-center gap-2 mb-4">
+                {getMetricIcon(stat.id)}
+                <span className="font-mono text-[9px] uppercase tracking-wider text-neutral-400">
+                  {stat.metricLabel}
+                </span>
+              </div>
 
-                {/* Stat number with modern display typography */}
-                <h2 className="font-mono font-bold text-5xl sm:text-6xl tracking-tight text-white transition-all duration-300 group-hover:scale-110 origin-center">
-                  <CountUp valueStr={stat.value} />
-                </h2>
-              </motion.div>
+              {/* Stat number with modern display typography */}
+              <h2 className="font-display font-medium text-4xl sm:text-5xl tracking-tight text-neutral-900 mb-2">
+                {stat.value}
+              </h2>
+
+              <p className="font-sans font-medium text-xs text-neutral-500 uppercase tracking-widest sm:text-xs">
+                {stat.label}
+              </p>
+
+              {/* Micro interactive hint box */}
+              <div className="mt-4 pt-4 border-t border-dashed border-neutral-100 hidden md:block opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <p className="text-[11px] text-neutral-500 text-left leading-relaxed">
+                  {getMetricDetails(stat.id)}
+                </p>
+              </div>
             </div>
           ))}
         </div>

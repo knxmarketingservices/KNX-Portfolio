@@ -74,7 +74,7 @@ export default function Footer() {
           <a href="#capabilities" className="hover:text-black transition-colors">Capabilities</a>
           <a href="#ai" className="hover:text-black transition-colors font-semibold text-neutral-900">AI Edge</a>
           <a href="#words" className="hover:text-black transition-colors">Receipts</a>
-          <a href="#contact" className="hover:text-black transition-colors text-black font-bold border-b border-black pb-0.5">Start Projekt</a>
+          <a href="#contact" className="hover:text-black transition-colors text-black font-bold border-b border-black pb-0.5">Start Project</a>
         </div>
 
         {/* Scroll back to top utility button */}

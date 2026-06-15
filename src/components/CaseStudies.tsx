@@ -50,41 +50,6 @@ const getScorecard = (id: string) => {
   }
 };
 
-const getRecentLeads = (id: string) => {
-  switch (id) {
-    case "gvr":
-      return [
-        { type: "Lead Form", name: "Fatima Al M. (Dubai Marina)", desc: "Mercedes Reveal — Viewing requested", time: "3m ago", status: "Verified" },
-        { type: "WhatsApp", name: "David K. (Palm Jumeirah)", desc: "Bugatti Residences — Pricing requested", time: "18m ago", status: "Verified" },
-        { type: "Lead Form", name: "Sarah L. (Downtown Dubai)", desc: "Penthouse brochure downloaded", time: "1h ago", status: "Verified" }
-      ];
-    case "hash":
-      return [
-        { type: "WhatsApp", name: "Anjali S. (Delhi)", desc: "Bridal Couture Consultation booked", time: "6m ago", status: "Verified" },
-        { type: "Lead Form", name: "Priya R. (Mumbai)", desc: "Lookbook Collection request", time: "24m ago", status: "Verified" },
-        { type: "WhatsApp", name: "Meera G. (Bangalore)", desc: "July Trousseau enquiry", time: "2h ago", status: "Verified" }
-      ];
-    case "sukriti":
-      return [
-        { type: "Booking", name: "Aravind K. (Chennai)", desc: "Doctor Consultation — In-clinic visit", time: "9m ago", status: "Confirmed" },
-        { type: "Lead Form", name: "Nisha P. (Chennai)", desc: "Treatment plan request", time: "35m ago", status: "Verified" },
-        { type: "Booking", name: "Suresh R. (Chennai)", desc: "Ayurveda Therapy slot reserved", time: "1h ago", status: "Confirmed" }
-      ];
-    case "pawan":
-      return [
-        { type: "Phone Call", name: "Rajesh S. (OMR Road)", desc: "3BHK Villa Pricing discussion", time: "11m ago", status: "Callback" },
-        { type: "Lead Form", name: "Vikram M. (ECR Road)", desc: "Schedule Site Visit request", time: "42m ago", status: "Verified" },
-        { type: "WhatsApp", name: "Divya N. (Adyar)", desc: "Brochure & Floorplan request", time: "3h ago", status: "Verified" }
-      ];
-    default: // image-innovation
-      return [
-        { type: "Enquiry", name: "IITPL Admin", desc: "Corporate Site redesign scope", time: "14m ago", status: "Verified" },
-        { type: "Enquiry", name: "Tech Ventures LLC", desc: "Custom React/Vite migration enquiry", time: "58m ago", status: "Verified" },
-        { type: "Enquiry", name: "Green Logistics", desc: "Consulting portal design review", time: "4h ago", status: "Verified" }
-      ];
-  }
-};
-
 export default function CaseStudies() {
   const [activeCategory, setActiveCategory] = useState("All");
   
@@ -465,41 +430,6 @@ export default function CaseStudies() {
                             );
                           })()}
                         </div>
-
-                        {/* Live Acquisition Stream */}
-                        <div className="border border-neutral-200 rounded-xl p-5 bg-neutral-50">
-                          <div className="flex justify-between items-center mb-4 border-b border-neutral-200/60 pb-3">
-                            <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest flex items-center gap-1.5">
-                              <Users className="w-3.5 h-3.5" /> Live Acquisition Ledger
-                            </span>
-                            <span className="flex items-center gap-1.5 text-[8px] font-mono text-emerald-500 uppercase font-bold tracking-wider">
-                              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" /> Live Feed
-                            </span>
-                          </div>
-
-                          <div className="space-y-3">
-                            {getRecentLeads(activeCase.id).map((lead, i) => (
-                              <div key={i} className="flex items-center justify-between p-3.5 bg-white border border-neutral-200/60 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                                <div className="flex items-center gap-3">
-                                  <div className="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center font-mono text-[9px] font-bold text-neutral-600">
-                                    {lead.type.substring(0, 2).toUpperCase()}
-                                  </div>
-                                  <div>
-                                    <div className="flex items-center gap-1.5">
-                                      <p className="text-xs font-semibold text-neutral-900">{lead.name}</p>
-                                      <span className="text-[8px] font-mono text-emerald-600 bg-emerald-50 border border-emerald-200/50 px-1 rounded">
-                                        {lead.status}
-                                      </span>
-                                    </div>
-                                    <p className="text-[10px] text-neutral-500 font-light mt-0.5">{lead.desc}</p>
-                                  </div>
-                                </div>
-                                <span className="text-[9px] font-mono text-neutral-400">{lead.time}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-
                       </div>
                     )}
 

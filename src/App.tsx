@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import ReStats from "./components/Stats";
 import CaseStudies from "./components/CaseStudies";
+import ClientWorkDrive from "./components/ClientWorkDrive";
 import Capabilities from "./components/Capabilities";
 import AIEngine from "./components/AIEngine";
 import Testimonials from "./components/Testimonials";
@@ -94,6 +95,9 @@ export default function App() {
 
         {/* Selected Work Portfolio (Interactive Tabs, Custom Charts, Blueprint mocks) */}
         <CaseStudies />
+
+        {/* Real Client Work Google Drive Archive */}
+        <ClientWorkDrive />
 
         {/* Capabilities Architecture Grid */}
         <Capabilities />

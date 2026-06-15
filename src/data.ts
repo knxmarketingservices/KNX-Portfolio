@@ -47,6 +47,10 @@ export const KRONNEX_WORK: CaseStudy[] = [
       { value: "2.3K", label: "Highly-Targeted Leads" },
       { value: "3K+", label: "Organic Reach Growth" }
     ],
+    showcaseImages: [
+      { src: "/hash-post-1.png", label: "Bridal Couture Lookbook 01" },
+      { src: "/hash-post-2.png", label: "Bridal Couture Lookbook 02" },
+    ],
     captions: ["Wedding Trousseau Series", "More Than Just A Dress Lookbook", "Founder Core Story Film"],
     mockChartTitle: "Organic Video Engagement Curve",
     mockChartData: [
@@ -69,6 +73,10 @@ export const KRONNEX_WORK: CaseStudy[] = [
       { value: "+797%", label: "Profile Interactive Rates" },
       { value: "+500%", label: "Website Link Clicks" }
     ],
+    showcaseImages: [
+      { src: "/sukriti-post-1.png", label: "Ayurveda Wellness Treatment 01" },
+      { src: "/sukriti-post-2.png", label: "Ayurveda Wellness Treatment 02" },
+    ],
     captions: ["Educational Treatment Carousels", "AI-Generated Concept Art", "In-Clinic Therapy Visuals"],
     mockChartTitle: "Monthly Link Tap Analytics",
     mockChartData: [
@@ -90,6 +98,10 @@ export const KRONNEX_WORK: CaseStudy[] = [
       { value: "266K", label: "Active Reel Views" },
       { value: "237+", label: "Direct Meta Leads" },
       { value: "120-150", label: "Inbound Calls / Month" }
+    ],
+    showcaseImages: [
+      { src: "/pawan-post-1.png", label: "Modern Luxury Villa 01" },
+      { src: "/pawan-post-2.png", label: "Modern Luxury Villa 02" },
     ],
     captions: ["Villas Campaign Concept", "Distributed Print Leaflet", "Scripted Property Walkthroughs"],
     mockChartTitle: "Verified Leads Feed Dynamics",

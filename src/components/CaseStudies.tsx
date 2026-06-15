@@ -8,109 +8,29 @@ import ScrollingBackgroundText from "./ScrollingBackgroundText";
 const CATEGORIES = ["All", "Luxury Real Estate", "Bridal Couture", "Health & Wellness", "Property Developer", "Web Design"];
 
 function ShowcaseGallery({ images }: { images: { src: string; label: string }[] }) {
-  const [activeIdx, setActiveIdx] = useState(0);
-  const [isHovering, setIsHovering] = useState(false);
-
-  // Auto-rotate when not hovering
-  useEffect(() => {
-    if (isHovering) return;
-    const timer = setInterval(() => {
-      setActiveIdx(prev => (prev + 1) % images.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, [isHovering, images.length]);
-
   return (
-    <div 
-      className="showcase-gallery"
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
-    >
-      {/* Hero Image */}
-      <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-neutral-950 group shadow-2xl shadow-black/20">
-        <AnimatePresence mode="wait">
-          <motion.img
-            key={activeIdx}
-            src={images[activeIdx].src}
-            alt={images[activeIdx].label}
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.98 }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="absolute inset-0 w-full h-full object-cover"
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      {images.map((img, i) => (
+        <div key={i} className="group relative aspect-[16/10] rounded-2xl overflow-hidden bg-neutral-950 shadow-md hover:shadow-xl transition-all duration-300 border border-neutral-200">
+          <img
+            src={img.src}
+            alt={img.label}
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-102 transition-transform duration-700 ease-out"
           />
-        </AnimatePresence>
+          {/* Subtle overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
 
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20 pointer-events-none" />
-
-        {/* Label */}
-        <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
-          <div className="flex items-end justify-between">
-            <div>
-              <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-neutral-400 block mb-1">
-                SHOWCASE · POST {activeIdx + 1} OF {images.length}
-              </span>
-              <h4 className="font-display text-base sm:text-lg font-medium text-white">
-                {images[activeIdx].label}
-              </h4>
-            </div>
-            <div className="flex gap-2">
-              <button
-                onClick={() => setActiveIdx(prev => prev === 0 ? images.length - 1 : prev - 1)}
-                className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/25 transition-colors"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => setActiveIdx(prev => (prev + 1) % images.length)}
-                className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/25 transition-colors"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
+          {/* Info */}
+          <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
+            <span className="font-mono text-[8px] sm:text-[9px] uppercase tracking-[0.2em] text-neutral-400 block mb-1">
+              CAMPAIGN VISUAL 0{i + 1}
+            </span>
+            <h4 className="font-display text-sm sm:text-base font-medium text-white leading-tight">
+              {img.label}
+            </h4>
           </div>
         </div>
-
-        {/* Progress dots */}
-        <div className="absolute top-4 right-4 flex gap-1.5 z-10">
-          {images.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setActiveIdx(i)}
-              className={`rounded-full transition-all duration-300 ${
-                i === activeIdx
-                  ? "w-6 h-2 bg-white"
-                  : "w-2 h-2 bg-white/40 hover:bg-white/60"
-              }`}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Thumbnail Strip */}
-      <div className="flex gap-3 mt-3">
-        {images.map((img, i) => (
-          <button
-            key={i}
-            onClick={() => setActiveIdx(i)}
-            className={`relative flex-1 aspect-[4/3] rounded-xl overflow-hidden border-2 transition-all duration-300 ${
-              i === activeIdx
-                ? "border-neutral-900 shadow-lg ring-2 ring-neutral-900/20"
-                : "border-neutral-200 opacity-60 hover:opacity-90 hover:border-neutral-400"
-            }`}
-          >
-            <img
-              src={img.src}
-              alt={img.label}
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-            {i === activeIdx && (
-              <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-[10px]" />
-            )}
-          </button>
-        ))}
-      </div>
+      ))}
     </div>
   );
 }

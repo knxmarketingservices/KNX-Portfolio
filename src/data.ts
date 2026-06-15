@@ -101,7 +101,7 @@ export const KRONNEX_WORK: CaseStudy[] = [
     ],
     showcaseImages: [
       { src: "/pawan-post-1.png", label: "Modern Luxury Villa 01" },
-      { src: "/pawan-post-2.png", label: "Modern Luxury Villa 02" },
+      { src: "/pawan-post-2.jpeg", label: "Modern Luxury Villa 02" },
     ],
     captions: ["Villas Campaign Concept", "Distributed Print Leaflet", "Scripted Property Walkthroughs"],
     mockChartTitle: "Verified Leads Feed Dynamics",

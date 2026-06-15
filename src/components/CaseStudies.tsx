@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { KRONNEX_WORK } from "../data";
 import { CaseStudy } from "../types";
 import { motion, AnimatePresence } from "motion/react";
-import { MapPin, Image, LineChart, LayoutTemplate, ChevronLeft, ChevronRight } from "lucide-react";
+import { MapPin, Image, LineChart, LayoutTemplate, ChevronLeft, ChevronRight, Activity, TrendingUp, DollarSign, Percent, MousePointerClick, Users } from "lucide-react";
 import ScrollingBackgroundText from "./ScrollingBackgroundText";
 
 const CATEGORIES = ["All", "Luxury Real Estate", "Bridal Couture", "Health & Wellness", "Property Developer", "Web Design"];
@@ -34,6 +34,56 @@ function ShowcaseGallery({ images }: { images: { src: string; label: string }[] 
     </div>
   );
 }
+
+const getScorecard = (id: string) => {
+  switch (id) {
+    case "gvr":
+      return { ctr: "3.92%", cpl: "AED 45", cvr: "4.8%", cplLabel: "Cost Per Lead", ctrDiff: "+1.4%", cvrDiff: "+2.1%" };
+    case "hash":
+      return { ctr: "4.12%", cpl: "₹240", cvr: "5.2%", cplLabel: "Cost Per Lead", ctrDiff: "+1.9%", cvrDiff: "+1.8%" };
+    case "sukriti":
+      return { ctr: "3.45%", cpl: "₹180", cvr: "6.1%", cplLabel: "Cost Per Booking", ctrDiff: "+1.1%", cvrDiff: "+2.4%" };
+    case "pawan":
+      return { ctr: "2.85%", cpl: "₹650", cvr: "3.9%", cplLabel: "Cost Per Lead", ctrDiff: "+0.8%", cvrDiff: "+1.1%" };
+    default: // image-innovation
+      return { ctr: "4.60%", cpl: "₹320", cvr: "5.5%", cplLabel: "Cost Per Enquiry", ctrDiff: "+1.7%", cvrDiff: "+2.2%" };
+  }
+};
+
+const getRecentLeads = (id: string) => {
+  switch (id) {
+    case "gvr":
+      return [
+        { type: "Lead Form", name: "Fatima Al M. (Dubai Marina)", desc: "Mercedes Reveal — Viewing requested", time: "3m ago", status: "Verified" },
+        { type: "WhatsApp", name: "David K. (Palm Jumeirah)", desc: "Bugatti Residences — Pricing requested", time: "18m ago", status: "Verified" },
+        { type: "Lead Form", name: "Sarah L. (Downtown Dubai)", desc: "Penthouse brochure downloaded", time: "1h ago", status: "Verified" }
+      ];
+    case "hash":
+      return [
+        { type: "WhatsApp", name: "Anjali S. (Delhi)", desc: "Bridal Couture Consultation booked", time: "6m ago", status: "Verified" },
+        { type: "Lead Form", name: "Priya R. (Mumbai)", desc: "Lookbook Collection request", time: "24m ago", status: "Verified" },
+        { type: "WhatsApp", name: "Meera G. (Bangalore)", desc: "July Trousseau enquiry", time: "2h ago", status: "Verified" }
+      ];
+    case "sukriti":
+      return [
+        { type: "Booking", name: "Aravind K. (Chennai)", desc: "Doctor Consultation — In-clinic visit", time: "9m ago", status: "Confirmed" },
+        { type: "Lead Form", name: "Nisha P. (Chennai)", desc: "Treatment plan request", time: "35m ago", status: "Verified" },
+        { type: "Booking", name: "Suresh R. (Chennai)", desc: "Ayurveda Therapy slot reserved", time: "1h ago", status: "Confirmed" }
+      ];
+    case "pawan":
+      return [
+        { type: "Phone Call", name: "Rajesh S. (OMR Road)", desc: "3BHK Villa Pricing discussion", time: "11m ago", status: "Callback" },
+        { type: "Lead Form", name: "Vikram M. (ECR Road)", desc: "Schedule Site Visit request", time: "42m ago", status: "Verified" },
+        { type: "WhatsApp", name: "Divya N. (Adyar)", desc: "Brochure & Floorplan request", time: "3h ago", status: "Verified" }
+      ];
+    default: // image-innovation
+      return [
+        { type: "Enquiry", name: "IITPL Admin", desc: "Corporate Site redesign scope", time: "14m ago", status: "Verified" },
+        { type: "Enquiry", name: "Tech Ventures LLC", desc: "Custom React/Vite migration enquiry", time: "58m ago", status: "Verified" },
+        { type: "Enquiry", name: "Green Logistics", desc: "Consulting portal design review", time: "4h ago", status: "Verified" }
+      ];
+  }
+};
 
 export default function CaseStudies() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -180,7 +230,7 @@ export default function CaseStudies() {
                   onClick={() => setActiveBrowserTab("metrics")}
                   className={`py-3 text-xs font-mono font-medium border-b-2 transition-colors flex items-center justify-center gap-2 ${activeBrowserTab === "metrics" ? "border-neutral-900 text-neutral-900 bg-white" : "border-transparent text-neutral-500 hover:bg-neutral-100"}`}
                 >
-                  <LineChart className="w-3.5 h-3.5" /> Metric Ledger
+                  <LineChart className="w-3.5 h-3.5" /> Performance Ledger
                 </button>
               </div>
 
@@ -296,33 +346,160 @@ export default function CaseStudies() {
                     {activeBrowserTab === "metrics" && (
                       <div className="space-y-8 h-full flex flex-col">
                         <div>
-                          <span className="text-[10px] font-mono text-neutral-400 mb-2 block">Metric Ledger Activity</span>
+                          <span className="text-[10px] font-mono text-neutral-400 mb-2 block uppercase tracking-wider font-semibold">Performance Ledger</span>
                           <h3 className="font-display text-2xl font-medium text-neutral-900">{activeCase.mockChartTitle}</h3>
                         </div>
-                        
-                        {/* Minimalist Bar Chart representation */}
-                        <div className="flex-1 min-h-[300px] border border-neutral-100 rounded-xl p-6 bg-neutral-50 flex items-end gap-4 justify-between">
-                           {activeCase.mockChartData?.map((data, idx) => {
-                             // find max metric to calculate percentage
-                             const maxMetric = Math.max(...(activeCase.mockChartData?.map(d => d.metric) || [1]));
-                             const heightPercent = `${Math.max(10, (data.metric / maxMetric) * 100)}%`;
-                             
-                             return (
-                               <div key={idx} className="flex flex-col items-center flex-1 h-full justify-end group">
-                                 <span className="text-xs font-mono font-medium text-neutral-900 mb-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                   {data.metric >= 1000 ? `${(data.metric/1000).toFixed(1)}k` : data.metric}
-                                 </span>
-                                 <div 
-                                   className="w-full bg-neutral-200 group-hover:bg-neutral-900 transition-all duration-500 rounded-t-sm"
-                                   style={{ height: heightPercent }}
-                                 />
-                                 <span className="text-[10px] font-mono text-neutral-500 mt-3 text-center">
-                                   {data.period}
-                                 </span>
-                               </div>
-                             );
-                           })}
+
+                        {/* Interactive Performance Scorecard */}
+                        {(() => {
+                          const scorecard = getScorecard(activeCase.id);
+                          return (
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                              <div className="border border-neutral-200 rounded-xl p-5 bg-neutral-50 hover:bg-neutral-900 hover:text-white transition-all duration-300 group">
+                                <div className="flex justify-between items-start mb-2">
+                                  <span className="text-[9px] font-mono uppercase tracking-widest text-neutral-400">CTR (Click-Through)</span>
+                                  <span className="text-[9px] font-mono text-emerald-500 font-semibold bg-emerald-50 px-1.5 py-0.5 rounded group-hover:bg-emerald-950/50">{scorecard.ctrDiff}</span>
+                                </div>
+                                <div className="font-display text-3xl font-bold text-neutral-900 group-hover:text-white">{scorecard.ctr}</div>
+                                <div className="text-[8px] font-mono text-neutral-400 mt-2">Ad Engagement Rate</div>
+                              </div>
+
+                              <div className="border border-neutral-200 rounded-xl p-5 bg-neutral-50 hover:bg-neutral-900 hover:text-white transition-all duration-300 group">
+                                <div className="flex justify-between items-start mb-2">
+                                  <span className="text-[9px] font-mono uppercase tracking-widest text-neutral-400">{scorecard.cplLabel.split(" ")[1]} Cost</span>
+                                  <span className="text-[9px] font-mono text-emerald-500 font-semibold bg-emerald-50 px-1.5 py-0.5 rounded group-hover:bg-emerald-950/50">-18%</span>
+                                </div>
+                                <div className="font-display text-3xl font-bold text-neutral-900 group-hover:text-white">{scorecard.cpl}</div>
+                                <div className="text-[8px] font-mono text-neutral-400 mt-2">{scorecard.cplLabel}</div>
+                              </div>
+
+                              <div className="border border-neutral-200 rounded-xl p-5 bg-neutral-50 hover:bg-neutral-900 hover:text-white transition-all duration-300 group">
+                                <div className="flex justify-between items-start mb-2">
+                                  <span className="text-[9px] font-mono uppercase tracking-widest text-neutral-400">CVR (Conversion)</span>
+                                  <span className="text-[9px] font-mono text-emerald-500 font-semibold bg-emerald-50 px-1.5 py-0.5 rounded group-hover:bg-emerald-950/50">{scorecard.cvrDiff}</span>
+                                </div>
+                                <div className="font-display text-3xl font-bold text-neutral-900 group-hover:text-white">{scorecard.cvr}</div>
+                                <div className="text-[8px] font-mono text-neutral-400 mt-2">Funnel Conversion Rate</div>
+                              </div>
+                            </div>
+                          );
+                        })()}
+
+                        {/* High-Fidelity SVG Area Chart */}
+                        <div className="border border-neutral-200 rounded-xl p-6 bg-neutral-50 flex flex-col justify-between">
+                          <div className="flex justify-between items-center mb-6">
+                            <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest flex items-center gap-1.5">
+                              <Activity className="w-3.5 h-3.5" /> Growth Curve &amp; Influx
+                            </span>
+                            <span className="text-[10px] font-mono text-neutral-500 bg-neutral-200/50 px-2 py-0.5 rounded">Sprint Timeline</span>
+                          </div>
+                          
+                          {(() => {
+                            const data = activeCase.mockChartData || [];
+                            const maxVal = Math.max(...data.map(d => d.metric), 1);
+                            const chartHeight = 160;
+                            const chartWidth = 500;
+                            const padding = 20;
+
+                            const points = data.map((d, i) => {
+                              const x = padding + (i / (data.length - 1)) * (chartWidth - padding * 2);
+                              const y = chartHeight - (d.metric / maxVal) * (chartHeight - 40);
+                              return { x, y, label: d.period, val: d.metric };
+                            });
+
+                            const linePath = points.reduce((acc, p, i) => {
+                              return i === 0 ? `M ${p.x} ${p.y}` : `${acc} L ${p.x} ${p.y}`;
+                            }, "");
+
+                            const areaPath = points.length > 0
+                              ? `${linePath} L ${points[points.length - 1].x} ${chartHeight} L ${points[0].x} ${chartHeight} Z`
+                              : "";
+
+                            return (
+                              <div className="relative w-full h-[200px]">
+                                <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} className="w-full h-full overflow-visible">
+                                  <defs>
+                                    <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+                                      <stop offset="0%" stopColor="#000" stopOpacity="0.1" />
+                                      <stop offset="100%" stopColor="#000" stopOpacity="0.0" />
+                                    </linearGradient>
+                                    <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
+                                      <stop offset="0%" stopColor="#404040" />
+                                      <stop offset="100%" stopColor="#000000" />
+                                    </linearGradient>
+                                  </defs>
+
+                                  {/* Grid Lines */}
+                                  <line x1={padding} y1={30} x2={chartWidth - padding} y2={30} stroke="#e5e5e5" strokeDasharray="3 3" />
+                                  <line x1={padding} y1={80} x2={chartWidth - padding} y2={80} stroke="#e5e5e5" strokeDasharray="3 3" />
+                                  <line x1={padding} y1={130} x2={chartWidth - padding} y2={130} stroke="#e5e5e5" strokeDasharray="3 3" />
+                                  <line x1={padding} y1={chartHeight} x2={chartWidth - padding} y2={chartHeight} stroke="#d4d4d4" strokeWidth="1.5" />
+
+                                  {/* Area */}
+                                  {areaPath && <path d={areaPath} fill="url(#areaGradient)" />}
+
+                                  {/* Line */}
+                                  {linePath && <path d={linePath} fill="none" stroke="url(#lineGradient)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />}
+
+                                  {/* Data Points */}
+                                  {points.map((p, i) => (
+                                    <g key={i} className="group/dot cursor-pointer">
+                                      <circle cx={p.x} cy={p.y} r="5" fill="#ffffff" stroke="#000000" strokeWidth="2.5" className="transition-all duration-300 group-hover/dot:r-7" />
+                                      <circle cx={p.x} cy={p.y} r="1.5" fill="#000000" />
+                                      
+                                      {/* Tooltip over dot */}
+                                      <text x={p.x} y={p.y - 12} textAnchor="middle" className="font-mono text-[9px] font-bold fill-neutral-900 opacity-0 group-hover/dot:opacity-100 transition-opacity bg-white px-1 py-0.5 rounded">
+                                        {p.val >= 1000 ? `${(p.val / 1000).toFixed(1)}k` : p.val}
+                                      </text>
+                                    </g>
+                                  ))}
+
+                                  {/* X-Axis Labels */}
+                                  {points.map((p, i) => (
+                                    <text key={i} x={p.x} y={chartHeight + 15} textAnchor="middle" className="font-mono text-[8px] fill-neutral-400 uppercase tracking-wider">
+                                      {p.label}
+                                    </text>
+                                  ))}
+                                </svg>
+                              </div>
+                            );
+                          })()}
                         </div>
+
+                        {/* Live Acquisition Stream */}
+                        <div className="border border-neutral-200 rounded-xl p-5 bg-neutral-50">
+                          <div className="flex justify-between items-center mb-4 border-b border-neutral-200/60 pb-3">
+                            <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest flex items-center gap-1.5">
+                              <Users className="w-3.5 h-3.5" /> Live Acquisition Ledger
+                            </span>
+                            <span className="flex items-center gap-1.5 text-[8px] font-mono text-emerald-500 uppercase font-bold tracking-wider">
+                              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" /> Live Feed
+                            </span>
+                          </div>
+
+                          <div className="space-y-3">
+                            {getRecentLeads(activeCase.id).map((lead, i) => (
+                              <div key={i} className="flex items-center justify-between p-3.5 bg-white border border-neutral-200/60 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                                <div className="flex items-center gap-3">
+                                  <div className="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center font-mono text-[9px] font-bold text-neutral-600">
+                                    {lead.type.substring(0, 2).toUpperCase()}
+                                  </div>
+                                  <div>
+                                    <div className="flex items-center gap-1.5">
+                                      <p className="text-xs font-semibold text-neutral-900">{lead.name}</p>
+                                      <span className="text-[8px] font-mono text-emerald-600 bg-emerald-50 border border-emerald-200/50 px-1 rounded">
+                                        {lead.status}
+                                      </span>
+                                    </div>
+                                    <p className="text-[10px] text-neutral-500 font-light mt-0.5">{lead.desc}</p>
+                                  </div>
+                                </div>
+                                <span className="text-[9px] font-mono text-neutral-400">{lead.time}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
                       </div>
                     )}
 

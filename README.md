@@ -1,20 +1,34 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# KRONNEX &middot; Independent Conversion Studio
 
-# Run and deploy your AI Studio app
+![Kronnex Logo](public/NEW_LOGO.png)
 
-This contains everything you need to run your app locally.
+An independent conversion studio engineering social creatives, luxury real-estate portfolios, clinical content pipelines, and automated prospecting engines. We gauge every customer partnership in calls, leads, and conversion metrics — not placeholder content calendars or vanity metrics.
 
-View your app in AI Studio: https://ai.studio/apps/3e1e902a-a360-4bae-8d7d-4a648c9c4bfe
+## 🚀 Quick Start
 
-## Run Locally
-
-**Prerequisites:**  Node.js
-
+**Prerequisites:**  Node.js (v18+)
 
 1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+   ```bash
+   npm install
+   ```
+2. Run the development server:
+   ```bash
+   npm run dev
+   ```
+3. Open `http://localhost:3000` in your browser to view the application.
+
+## 🛠️ Built With
+- React
+- Vite
+- Tailwind CSS
+- Lucide React
+- Framer Motion
+
+## 📜 Credits & Licensing
+
+**Built by** [TEAM o7 Digital solutions](https://team-o7-digital-solutions.vercel.app/)  
+**Creator Credits:** [BALAVIGNESHWARTG](https://github.com/BALAVIGNESHWARTG)
+
+---
+&copy; 2026 Image Innovation Technology Pvt. Ltd. All rights reserved.

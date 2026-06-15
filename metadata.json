@@ -1,0 +1,6 @@
+{
+  "name": "Kronnex",
+  "description": "Premium, highly interactive, and responsive portfolio for Kronnex Digital & AI, a high-performance transformation and growth engineering partner.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
